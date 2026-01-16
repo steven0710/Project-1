@@ -36,38 +36,40 @@ const JobForm = () => {
     <div>
       <h2>Add a Job</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label className="outline-black outline-2">Company:</label>
-          <input
-            className=""
-            type="text"
-            value={company}
-            onChange={(e) => setCompany(e.target.value)}
-            required
-          />
-        </div>
+        <div className="grid grid-cols-3">
+          <div className="flex flex-row p-2">
+            <label className="">Company:</label>
+            <input
+              className=""
+              type="text"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+              required
+            />
+          </div>
 
-        <div>
-          <label>Role:</label>
-          <input
-            className="outline-black outline-2"
-            type="text"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-            required
-          />
-        </div>
+          <div>
+            <label>Role:</label>
+            <input
+              className=""
+              type="text"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              required
+            />
+          </div>
 
-        <div>
-          <label>Status:</label>
-          <select
-            value={status}
-            onChange={(e) => setStatus(e.target.value as JobStatus)}
-          >
-            <option value="Applied">Applied</option>
-            <option value="Interview">Interview</option>
-            <option value="Rejected">Rejected</option>
-          </select>
+          <div>
+            <label>Status:</label>
+            <select
+              value={status}
+              onChange={(e) => setStatus(e.target.value as JobStatus)}
+            >
+              <option value="Applied">Applied</option>
+              <option value="Interview">Interview</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+          </div>
         </div>
 
         <button type="submit">Add Job</button>
