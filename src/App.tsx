@@ -1,35 +1,88 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from "react";
+import type { Job, JobStatus } from "./types/jobs"; // your type file
+// your type file
 
-function App() {
-  const [count, setCount] = useState(0)
+const JobForm = () => {
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [company, setCompany] = useState("");
+  const [role, setRole] = useState("");
+  const [status, setStatus] = useState<JobStatus>("Applied");
+
+  // Load saved jobs from localStorage on mount
+  useEffect(() => {
+    const saved = localStorage.getItem("jobs");
+    if (saved) setJobs(JSON.parse(saved));
+  }, []);
+
+  // Save jobs to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("jobs", JSON.stringify(jobs));
+  }, [jobs]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const newJob: Job = {
+      company,
+      role,
+      status,
+    };
+    setJobs([...jobs, newJob]);
+    setCompany("");
+    setRole("");
+    setStatus("Applied");
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <h2>Add a Job</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label className="outline-black outline-2">Company:</label>
+          <input
+            className=""
+            type="text"
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+            required
+          />
+        </div>
 
-export default App
+        <div>
+          <label>Role:</label>
+          <input
+            className="outline-black outline-2"
+            type="text"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            required
+          />
+        </div>
+
+        <div>
+          <label>Status:</label>
+          <select
+            value={status}
+            onChange={(e) => setStatus(e.target.value as JobStatus)}
+          >
+            <option value="Applied">Applied</option>
+            <option value="Interview">Interview</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </div>
+
+        <button type="submit">Add Job</button>
+      </form>
+
+      <h2>Saved Jobs</h2>
+      <ul>
+        {jobs.map((job) => (
+          <li key={job.company}>
+            {job.company} - {job.role} ({job.status})
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default JobForm;
