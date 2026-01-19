@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://steven0710.github.io/job-tracker",
+  "homepage": "https://steven0710.github.io/Project-1",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
