@@ -61,10 +61,9 @@ const JobForm = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="">hi</div>
       {quote && (
         <div
-          className="flex text-center bg-blue-500 italic p-4 border"
+          className="pb-16"
           // style={{ backgroundColor: "blue" }}
         >
           “{quote.q}” — <strong>{quote.a}</strong>
