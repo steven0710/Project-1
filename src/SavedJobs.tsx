@@ -43,15 +43,15 @@ const SavedJobs: React.FC<Props> = ({ jobs, setJobs }) => {
     });
   };
 
-  const updateJobStatus = (index: number, newStatus: JobStatus) => {
-    setJobs((prev) => {
-      const updated = prev.map((job, i) =>
-        i === index ? { ...job, status: newStatus } : job,
-      );
-      localStorage.setItem("jobs", JSON.stringify(updated));
-      return updated;
-    });
-  };
+  // const updateJobStatus = (index: number, newStatus: JobStatus) => {
+  //   setJobs((prev) => {
+  //     const updated = prev.map((job, i) =>
+  //       i === index ? { ...job, status: newStatus } : job,
+  //     );
+  //     localStorage.setItem("jobs", JSON.stringify(updated));
+  //     return updated;
+  //   });
+  // };
 
   return (
     <ul>

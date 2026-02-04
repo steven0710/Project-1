@@ -48,16 +48,16 @@ const JobForm = () => {
     setStatus("Applied");
   };
 
-  // update status for a job at a given index
-  const updateJobStatus = (index: number, newStatus: JobStatus) => {
-    setJobs((prev) => {
-      const updated = prev.map((job, i) =>
-        i === index ? { ...job, status: newStatus } : job,
-      );
-      localStorage.setItem("jobs", JSON.stringify(updated));
-      return updated;
-    });
-  };
+  // // update status for a job at a given index
+  // const updateJobStatus = (index: number, newStatus: JobStatus) => {
+  //   setJobs((prev) => {
+  //     const updated = prev.map((job, i) =>
+  //       i === index ? { ...job, status: newStatus } : job,
+  //     );
+  //     localStorage.setItem("jobs", JSON.stringify(updated));
+  //     return updated;
+  //   });
+  // };
 
   return (
     <div className="flex flex-col">
