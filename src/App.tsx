@@ -41,11 +41,6 @@ const JobForm = () => {
     };
   }, []);
 
-  // Save jobs to localStorage whenever they change
-  useEffect(() => {
-    localStorage.setItem("jobs", JSON.stringify(jobs));
-  }, [jobs]);
-
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const newJob: Job = {
