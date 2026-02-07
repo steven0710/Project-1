@@ -54,63 +54,66 @@ const SavedJobs: React.FC<Props> = ({ jobs, setJobs }) => {
   // };
 
   return (
-    <ul>
-      {jobs.map((job, i) => (
-        <li
-          key={i}
-          className="flex justify-between items-center border p-2 mb-2"
-        >
-          <div>
-            {editingIndex === i ? (
-              <div className="flex gap-2 items-center">
-                <input
-                  value={editCompany}
-                  onChange={(e) => setEditCompany(e.target.value)}
-                />
-                <input
-                  value={editRole}
-                  onChange={(e) => setEditRole(e.target.value)}
-                />
-                <select
-                  value={editStatus}
-                  onChange={(e) => setEditStatus(e.target.value as JobStatus)}
-                >
-                  {JOB_STATUSES.map((s) => (
-                    <option key={s} value={s}>
-                      {s}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            ) : (
-              <div>
-                {job.company} - {job.role} (<span>{job.status}</span>){" "}
-                {new Date(job.dateApplied).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </div>
-            )}
-          </div>
+    <>
+      <h2>Saved Jobs</h2>
+      <ul>
+        {jobs.map((job, i) => (
+          <li
+            key={i}
+            className="flex justify-between items-center border p-2 mb-2"
+          >
+            <div>
+              {editingIndex === i ? (
+                <div className="flex gap-2 items-center">
+                  <input
+                    value={editCompany}
+                    onChange={(e) => setEditCompany(e.target.value)}
+                  />
+                  <input
+                    value={editRole}
+                    onChange={(e) => setEditRole(e.target.value)}
+                  />
+                  <select
+                    value={editStatus}
+                    onChange={(e) => setEditStatus(e.target.value as JobStatus)}
+                  >
+                    {JOB_STATUSES.map((s) => (
+                      <option key={s} value={s}>
+                        {s}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              ) : (
+                <div>
+                  {job.company} - {job.role} (<span>{job.status}</span>){" "}
+                  {new Date(job.dateApplied).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </div>
+              )}
+            </div>
 
-          <div className="flex gap-2">
-            {editingIndex === i ? (
-              <>
-                <button onClick={() => saveEdit(i)}>Save</button>
-                <button onClick={cancelEdit}>Cancel</button>
-              </>
-            ) : (
-              <>
-                <button onClick={() => startEdit(i)}>Edit</button>
+            <div className="flex gap-2">
+              {editingIndex === i ? (
+                <>
+                  <button onClick={() => saveEdit(i)}>Save</button>
+                  <button onClick={cancelEdit}>Cancel</button>
+                </>
+              ) : (
+                <>
+                  <button onClick={() => startEdit(i)}>Edit</button>
 
-                <button onClick={() => deleteJob(i)}>Delete</button>
-              </>
-            )}
-          </div>
-        </li>
-      ))}
-    </ul>
+                  <button onClick={() => deleteJob(i)}>Delete</button>
+                </>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };
 
