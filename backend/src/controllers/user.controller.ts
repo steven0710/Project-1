@@ -53,7 +53,6 @@ const loginUser = async (req: Request, res: Response) => {
       process.env.JWT_SECRET as string,
       { expiresIn: "1d" },
     );
-
     res.status(200).json({
       message: "Login successful",
       username: user.username,

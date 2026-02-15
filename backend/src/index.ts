@@ -2,10 +2,7 @@ import dotenv from "dotenv";
 import app from "./app";
 import { connectDB } from "./config/db";
 
-dotenv.config({
-  path: "./.env",
-});
-
+dotenv.config();
 const startServer = async () => {
   try {
     // 1️⃣ Connect to MongoDB
