@@ -65,10 +65,14 @@ const loginUser = async (req: Request, res: Response) => {
 };
 const logoutUser = async (req: Request, res: Response) => {
   try {
-    // Implement logout logic (e.g., invalidate token, clear session)
-    const { email } = req.body;
+    // Implement logout logic (e.g., invalidate token)
+    const { email, token } = req.body;
     if (!email) {
       return res.status(400).json({ message: "Email is required" });
+    }
+
+    if (!token) {
+      return res.status(400).json({ message: "Invalid Token" });
     }
     res.status(200).json({ message: "Logout successful" });
   } catch (error) {

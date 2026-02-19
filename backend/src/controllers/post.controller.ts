@@ -1,12 +1,17 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { Job } from "../models/jobs.model";
+import { AuthRequest } from "../types/auth-request";
 
-export const createJob = async (req: Request, res: Response) => {
+export const createJob = async (req: AuthRequest, res: Response) => {
   try {
     const { title, company, employmentType, status } = req.body;
 
+    if (!req.user?.userId) {
+      return res.status(401).json({ message: "Not authorized" });
+    }
+
     // Take userId directly from the verified JWT
-    const userId = (req as any).user.userId; // safe, authMiddleware guarantees it
+    const userId = req.user.userId;
 
     // Create job with userId attached
     const job = await Job.create({
