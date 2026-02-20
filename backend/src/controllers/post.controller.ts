@@ -29,7 +29,7 @@ export const createJob = async (req: AuthRequest, res: Response) => {
   }
 };
 
-export const getJobs = async (req: AuthRequest, res: Response) => {
+export const getAllJobs = async (req: AuthRequest, res: Response) => {
   try {
     if (!req.user?.userId) {
       return res.status(401).json({ message: "Not authorized" });
@@ -41,6 +41,44 @@ export const getJobs = async (req: AuthRequest, res: Response) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+export const getJobById = async (req: AuthRequest, res: Response) => {
+  try {
+    if (!req.user?.userId) {
+      return res.status(401).json({ message: "Not authorized" });
+    }
+    const getJob = await Job.findOne({
+      _id: req.params.id,
+      userId: req.user.userId, // Ensure the job belongs to the authenticated user
+    });
+
+    if (!getJob) {
+      return res.status(404).json({ message: "Job not found" });
+    }
+
+    return res.status(200).json({ message: "Job retrieved", job: getJob });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// export const updateJob = async (req: AuthRequest, res: Response) => {
+//   try {
+//     if (!req.user?.userId) {
+//       return res.status(401).json({ message: "Not authorized" });
+//     }
+//     const allowedFields = [
+//       "title",
+//       "company",
+//       "employmentType",
+//       "status",
+//     ] as const;
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };
 
 export const deleteJob = async (req: AuthRequest, res: Response) => {
   try {
@@ -56,6 +94,10 @@ export const deleteJob = async (req: AuthRequest, res: Response) => {
       _id: req.params.id,
       userId: req.user.userId, // Ensure the job belongs to the authenticated user
     });
+
+    if (!deleteJob) {
+      return res.status(404).json({ message: "Job not found" });
+    }
 
     return res.status(200).json({ message: "Job deleted", job: deleteJob });
   } catch (err) {
