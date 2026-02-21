@@ -7,7 +7,7 @@ export const updateJobSchema = z
     employmentType: z
       .enum(["full-time", "part-time", "contract", "internship"])
       .optional(),
-    status: z.enum(["applied", "interview", "offer", "rejected"]).optional(),
+    status: z.enum(["applied", "interviewing", "offer", "rejected"]).optional(),
   })
   .strict()
   .refine((data) => Object.keys(data).length > 0, {

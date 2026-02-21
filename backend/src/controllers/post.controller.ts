@@ -79,9 +79,7 @@ export const updateJob = async (req: AuthRequest, res: Response) => {
         fieldErrors: parsed.error.flatten().fieldErrors,
       });
     }
-    console.log("params:", req.params);
-    console.log("userId:", req.user?.userId);
-    console.log("body:", req.body);
+
     const updatedJob = await Job.findOneAndUpdate(
       { _id: req.params.id, userId: req.user.userId },
       parsed.data,
